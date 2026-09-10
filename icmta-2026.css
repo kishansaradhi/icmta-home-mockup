@@ -1,0 +1,379 @@
+/* =====================================================================
+   ICMTA 2026 — additions to the existing stylesheet
+   Load AFTER css/style.css:
+
+     <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/icmta-2026.css">
+
+   Everything new is prefixed .icm- so it cannot collide with the
+   existing rules. The only existing selectors touched are the header
+   nav, the footer and .site-welcome-banner, and those are listed
+   together in section 2 so they are easy to find or undo.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------
+   1. TOKENS
+   The blue is already in use across the site. The gold is sampled
+   from Lahari's logo — the half of the mark the site was ignoring.
+   --------------------------------------------------------------- */
+:root{
+  --icm-blue:#0175a6;
+  --icm-blue-deep:#004d66;
+  --icm-blue-dark:#00394d;
+  --icm-gold:#c49b4b;
+  --icm-gold-deep:#8f6d26;
+  --icm-gold-wash:#faf4e6;
+  --icm-wash:#eaf5fb;
+  --icm-ink:#132630;
+  --icm-ink-2:#415a66;
+  --icm-ink-3:#748d99;
+  --icm-paper:#fff;
+  --icm-ground:#f8f6f1;
+  --icm-rule:#e3ddd1;
+  --icm-rule-cool:#d9e6ed;
+  --icm-radius:6px;
+  --icm-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --icm-shadow:0 1px 2px rgba(19,38,48,.05),0 10px 30px -18px rgba(19,38,48,.35);
+}
+
+/* ---------------------------------------------------------------
+   2. HEADER — dropdowns, site search, gold active underline
+   Applies to every page. Markup changes are in header-snippet.html
+   --------------------------------------------------------------- */
+.nav-links{align-items:center}
+
+.icm-navitem{position:relative;display:inline-flex;align-items:center}
+.icm-navitem > a{display:inline-flex;align-items:center;gap:5px}
+.icm-caret{font-size:9px;font-style:normal;opacity:.6;transition:transform .18s}
+.icm-navitem:hover .icm-caret,
+.icm-navitem:focus-within .icm-caret{transform:rotate(180deg);opacity:1;color:var(--icm-gold-deep)}
+
+/* invisible bridge so the menu does not snap shut crossing the gap */
+.icm-navitem::after{content:"";position:absolute;top:100%;left:0;right:0;height:14px}
+
+.icm-dd{
+  position:absolute;top:calc(100% + 12px);left:0;min-width:232px;
+  background:var(--icm-paper);border:1px solid var(--icm-rule-cool);
+  border-top:3px solid var(--icm-gold);border-radius:var(--icm-radius);
+  box-shadow:0 16px 38px -12px rgba(19,38,48,.30);padding:8px;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .16s,transform .16s,visibility .16s;z-index:70;
+}
+.icm-navitem:hover .icm-dd,
+.icm-navitem:focus-within .icm-dd{opacity:1;visibility:visible;transform:translateY(0)}
+.icm-dd a{
+  display:block;padding:10px 14px;font-size:14.5px;font-weight:400;
+  color:var(--icm-ink-2);border-radius:4px;white-space:nowrap;text-decoration:none;
+}
+.icm-dd a:hover{background:var(--icm-gold-wash);color:var(--icm-gold-deep);font-weight:700}
+.icm-dd a.icm-soon{color:var(--icm-ink-3);pointer-events:none}
+.icm-dd a.icm-soon::after{
+  content:"later";font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--icm-wash);color:var(--icm-ink-3);padding:1px 6px;border-radius:3px;margin-left:9px;
+}
+
+/* gold underline on the current page */
+.nav-item.active{position:relative}
+.nav-item.active::after{
+  content:"";display:block;height:2px;background:var(--icm-gold);
+  margin-top:6px;border-radius:2px;
+}
+
+/* site-wide search — searches PAGES, not members */
+.icm-sitesearch{display:flex;align-items:center;margin-left:8px}
+.icm-ss-btn{
+  background:none;border:1.5px solid var(--icm-rule-cool);color:var(--icm-blue-deep);
+  width:38px;height:38px;border-radius:var(--icm-radius);font-size:19px;line-height:1;
+  cursor:pointer;transition:.15s;flex-shrink:0;
+}
+.icm-ss-btn:hover{border-color:var(--icm-blue);background:var(--icm-wash)}
+.icm-ss-form{width:0;overflow:hidden;transition:width .22s ease,margin .22s ease}
+.icm-sitesearch.icm-open .icm-ss-form{width:min(330px,34vw);margin-left:8px}
+.icm-sitesearch.icm-open .icm-ss-btn{border-color:var(--icm-gold);background:var(--icm-gold-wash);color:var(--icm-gold-deep)}
+.icm-ss-form input{
+  width:100%;border:1.5px solid var(--icm-rule-cool);border-radius:var(--icm-radius);
+  padding:8px 13px;font-size:14px;color:var(--icm-ink);outline:none;background:var(--icm-paper);
+}
+.icm-ss-form input:focus{border-color:var(--icm-blue)}
+
+/* utility strip above the header (replaces .site-welcome-banner) */
+.icm-utilbar{background:var(--icm-blue-dark);color:#a9cddd;font-size:12.5px}
+.icm-utilbar-inner{
+  max-width:1180px;margin:0 auto;display:flex;align-items:center;
+  justify-content:space-between;gap:16px;padding:7px 24px;
+}
+.icm-utilbar a{color:#cfe4ee;font-weight:700;text-decoration:none}
+.icm-utilbar a:hover{color:var(--icm-gold)}
+.icm-ub-right{display:flex;align-items:center;gap:18px}
+.icm-ub-ic{
+  width:22px;height:22px;border:1px solid rgba(255,255,255,.28);border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;font-size:10px;
+}
+.icm-ub-ic:hover{border-color:var(--icm-gold)}
+
+
+/* ---------------------------------------------------------------
+   2a. OVERRIDES of existing style.css
+   The approved design has a WHITE header and a DARK footer.
+   style.css ships the opposite of both. These five rules flip them.
+   Delete this block to revert to the old look.
+   --------------------------------------------------------------- */
+.header{
+  background:#fff;color:var(--icm-ink);
+  border-bottom:1px solid var(--icm-rule-cool);
+  box-shadow:none;
+}
+.nav-item{color:var(--icm-ink-2);font-weight:700;font-size:15px;padding:9px 14px}
+.nav-item:hover{background:var(--icm-wash);color:var(--icm-blue-deep)}
+.nav-item.active{color:var(--icm-blue-deep);background:transparent}
+
+.footer{
+  background:var(--icm-ink);color:#9db3bd;
+  border-top:0;padding:58px 0 26px;
+}
+.footer-brand b{color:#fff}
+/* the seal is navy and gold on transparent — it vanishes on the dark
+   footer, so keep a white disc behind it */
+.footer-logo{background:#fff;border:0;padding:5px;height:58px;width:58px;border-radius:50%}
+
+/* ---------------------------------------------------------------
+   3. WATERMARK — the seal, centred and fixed behind the page
+   --------------------------------------------------------------- */
+.icm-watermark{
+  position:fixed;inset:0;pointer-events:none;z-index:2;
+  background:url("../assets/images/ICMTA-logo.png") no-repeat center center;
+  background-size:min(44vw,520px);opacity:.055;
+}
+.icm-wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------------------------------------------------------------
+   4. HOME PAGE SECTIONS
+   --------------------------------------------------------------- */
+.icm-section{padding:48px 0;position:relative;z-index:3}
+.icm-eyebrow{
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--icm-gold-deep);font-weight:900;margin:0 0 8px;
+}
+.icm-h2{
+  font-family:var(--icm-serif);font-weight:600;font-size:clamp(24px,3vw,32px);
+  margin:0 0 8px;color:var(--icm-blue-deep);letter-spacing:-.01em;
+}
+.icm-sec-head{margin-bottom:22px}
+.icm-sec-head p{margin:0;color:var(--icm-ink-2);max-width:62ch}
+.icm-seeall{margin:20px 0 0}
+.icm-seeall a{font-size:14.5px;font-weight:700;color:var(--icm-blue);text-decoration:none}
+
+/* hero */
+.icm-hero{
+  position:relative;overflow:hidden;
+  background:radial-gradient(900px 380px at 78% -12%, rgba(196,155,75,.16), transparent 62%),
+             linear-gradient(180deg,var(--icm-gold-wash) 0%, var(--icm-ground) 58%, var(--icm-paper) 100%);
+  border-bottom:1px solid var(--icm-rule);padding:46px 0 40px;
+}
+.icm-hero h1{
+  font-family:var(--icm-serif);font-weight:600;font-size:clamp(22px,2.9vw,33px);
+  line-height:1.2;margin:0 0 24px;color:var(--icm-blue-deep);letter-spacing:-.01em;
+}
+@media(min-width:980px){.icm-hero h1{white-space:nowrap}}
+.icm-lede{font-size:18.5px;color:var(--icm-ink-2);max-width:62ch;margin:0 0 26px}
+.icm-herobtns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.icm-btn-solid{
+  background:var(--icm-blue-deep);color:#fff;padding:13px 26px;border-radius:var(--icm-radius);
+  font-weight:700;font-size:15px;text-decoration:none;display:inline-block;
+}
+.icm-btn-solid:hover{background:var(--icm-blue);color:#fff}
+.icm-btn-line{
+  border:1.5px solid var(--icm-gold);color:var(--icm-gold-deep);padding:13px 24px;
+  border-radius:var(--icm-radius);font-weight:700;font-size:15px;text-decoration:none;display:inline-block;
+}
+.icm-btn-line:hover{background:var(--icm-gold-wash)}
+.icm-stats{display:flex;gap:46px;margin-top:30px;flex-wrap:wrap}
+.icm-stat b{
+  display:block;font-family:var(--icm-serif);font-size:30px;font-weight:700;
+  color:var(--icm-blue-deep);line-height:1;font-variant-numeric:tabular-nums;
+}
+.icm-stat span{
+  font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--icm-ink-3);font-weight:700;
+}
+
+/* spotlight — two time-bound items, refreshed as dates pass */
+.icm-spotlight{background:var(--icm-blue-deep);padding:22px 0 26px;position:relative;z-index:3}
+.icm-sp-label{
+  display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--icm-gold);font-weight:900;margin-bottom:13px;
+}
+.icm-sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.icm-sp-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  border-left:3px solid var(--icm-gold);border-radius:var(--icm-radius);padding:16px 20px;
+  display:flex;flex-direction:column;gap:5px;transition:.18s;text-decoration:none;
+}
+.icm-sp-card:hover{background:rgba(255,255,255,.13);transform:translateY(-2px)}
+.icm-sp-when{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--icm-gold);font-weight:900}
+.icm-sp-card b{color:#fff;font-family:var(--icm-serif);font-size:17.5px;font-weight:600;line-height:1.3}
+.icm-sp-go{font-size:13.5px;font-weight:700;color:#cfe4ee}
+
+/* events */
+.icm-happening{background:var(--icm-ground);border-top:1px solid var(--icm-rule);border-bottom:1px solid var(--icm-rule)}
+.icm-ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.icm-ev{
+  background:var(--icm-paper);border:1px solid var(--icm-rule-cool);border-radius:var(--icm-radius);
+  display:grid;grid-template-columns:86px 1fr;overflow:hidden;transition:.18s;
+}
+.icm-ev:hover{border-color:var(--icm-gold);box-shadow:var(--icm-shadow)}
+.icm-ev-date{
+  background:var(--icm-blue-deep);color:#fff;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:18px 8px;text-align:center;
+}
+.icm-ev-date b{font-family:var(--icm-serif);font-size:27px;line-height:1;font-weight:700}
+.icm-ev-date span{font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-top:5px;color:#a9cddd}
+.icm-ev-body{padding:18px 20px}
+.icm-ev-tag{
+  display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:900;color:var(--icm-gold-deep);background:var(--icm-gold-wash);
+  padding:3px 9px;border-radius:3px;margin-bottom:9px;
+}
+.icm-ev-body h3{
+  margin:0 0 7px;font-family:var(--icm-serif);font-size:18px;font-weight:600;
+  color:var(--icm-blue-deep);line-height:1.3;
+}
+.icm-ev-body p{margin:0 0 11px;font-size:14px;color:var(--icm-ink-2)}
+.icm-ev-go{font-size:14px;font-weight:700;color:var(--icm-blue);text-decoration:none}
+
+/* directory */
+.icm-searchlabel{
+  display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--icm-gold-deep);font-weight:900;margin-bottom:9px;
+}
+.icm-search{
+  display:flex;max-width:560px;box-shadow:var(--icm-shadow);border-radius:var(--icm-radius);
+  overflow:hidden;border:1.5px solid var(--icm-blue-deep);background:#fff;
+}
+.icm-search input{flex:1;border:0;padding:15px 18px;font-size:16px;color:var(--icm-ink);outline:none;min-width:0}
+.icm-search button{
+  border:0;background:var(--icm-blue-deep);color:#fff;font-weight:700;font-size:15px;
+  padding:0 26px;cursor:pointer;white-space:nowrap;
+}
+.icm-search button:hover{background:var(--icm-blue)}
+.icm-hint{margin:12px 0 22px;font-size:13.5px;color:var(--icm-ink-3)}
+.icm-chips{display:flex;flex-wrap:wrap;gap:10px}
+.icm-chip{
+  background:var(--icm-paper);border:1px solid var(--icm-rule-cool);border-radius:100px;
+  padding:9px 17px;font-size:14.5px;font-weight:700;color:var(--icm-ink-2);
+  transition:.15s;text-decoration:none;
+}
+.icm-chip:hover{border-color:var(--icm-gold);color:var(--icm-gold-deep);background:var(--icm-gold-wash)}
+.icm-chip i{font-style:normal;color:var(--icm-ink-3);font-weight:400;margin-left:6px;font-size:13px}
+.icm-rolesline{margin:20px 0 0;font-size:14.5px;color:var(--icm-ink-2)}
+.icm-rolesline b{color:var(--icm-blue-deep);font-family:var(--icm-serif);font-size:17px}
+
+/* initiatives */
+.icm-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:18px}
+.icm-card{
+  background:var(--icm-paper);border:1px solid var(--icm-rule-cool);
+  border-radius:var(--icm-radius);padding:24px;transition:.18s;
+}
+.icm-card:hover{border-color:var(--icm-gold);box-shadow:var(--icm-shadow);transform:translateY(-2px)}
+.icm-card .icm-ic{
+  width:38px;height:38px;border-radius:50%;background:var(--icm-wash);color:var(--icm-blue-deep);
+  display:flex;align-items:center;justify-content:center;font-family:var(--icm-serif);
+  font-weight:700;font-size:16px;margin-bottom:14px;
+}
+.icm-card h3{margin:0 0 6px;font-family:var(--icm-serif);font-size:18px;font-weight:600;color:var(--icm-blue-deep)}
+.icm-card p{margin:0;font-size:14.5px;color:var(--icm-ink-2)}
+
+/* join strip — no fees here, they live on membership.html */
+.icm-join{
+  background:linear-gradient(135deg,var(--icm-blue-dark),var(--icm-blue-deep) 58%,var(--icm-blue));
+  padding:26px 0;position:relative;z-index:3;
+}
+.icm-join-row{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.icm-join-txt{flex:1;min-width:280px}
+.icm-join h2{color:#fff;font-family:var(--icm-serif);font-size:23px;margin:0 0 4px;font-weight:600}
+.icm-join p{color:#cfe4ee;margin:0;font-size:15px}
+.icm-join-btns{display:flex;gap:14px;flex-shrink:0;flex-wrap:wrap}
+.icm-btn-gold{
+  background:var(--icm-gold);color:#2b1f06;padding:11px 22px;border-radius:var(--icm-radius);
+  font-weight:900;font-size:14.5px;text-decoration:none;
+}
+.icm-btn-gold:hover{background:#d8ae5c;color:#2b1f06}
+.icm-btn-ghost{
+  border:1.5px solid rgba(255,255,255,.55);color:#fff;padding:11px 20px;
+  border-radius:var(--icm-radius);font-weight:700;font-size:14.5px;text-decoration:none;
+}
+.icm-btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* ---------------------------------------------------------------
+   5. FOOTER — Quick links, fewer links, newsletter
+   --------------------------------------------------------------- */
+.icm-fgrid{
+  max-width:1180px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:1.9fr 1fr 1fr 1.3fr;gap:48px;
+}
+.icm-fcol h4{
+  margin:0 0 14px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--icm-gold);font-weight:900;
+}
+.icm-fcol a{display:block;padding:6px 0;font-size:14.5px;color:#9db3bd;text-decoration:none}
+.icm-fcol a:hover{color:var(--icm-gold)}
+.icm-ftag{
+  margin:18px 0 0;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#6f8d99;font-weight:700;
+}
+.icm-fnl{font-size:13.5px;color:#9db3bd;margin:0 0 11px;max-width:30ch}
+.icm-fnlform{display:flex;border-radius:var(--icm-radius);overflow:hidden;max-width:290px}
+.icm-fnlform input{
+  flex:1;border:0;padding:10px 12px;font-size:13.5px;background:#1d3742;
+  color:#e6eef1;outline:none;min-width:0;
+}
+.icm-fnlform button{
+  border:0;background:var(--icm-gold);color:#2b1f06;font-weight:900;font-size:12.5px;
+  padding:0 16px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;
+}
+.icm-fsocial{display:flex;gap:10px;margin-top:18px}
+.icm-fsocial a{
+  width:32px;height:32px;border:1px solid #2c4a57;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:12px;padding:0;
+}
+.icm-fsocial a:hover{border-color:var(--icm-gold);color:var(--icm-gold)}
+.icm-fbot{
+  max-width:1180px;margin:34px auto 0;padding:20px 24px 0;border-top:1px solid #24404c;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:13px;color:#6f8d99;
+}
+.icm-fbot a{color:#6f8d99;text-decoration:none;margin-right:20px}
+.icm-fbot a:hover{color:var(--icm-gold)}
+
+/* ---------------------------------------------------------------
+   6. RESPONSIVE — two breakpoints, not four
+   --------------------------------------------------------------- */
+@media(max-width:900px){
+  /* hover menus do not work on touch — the parent link goes to the page */
+  .icm-dd{display:none}
+  .icm-caret{display:none}
+  .icm-sitesearch{display:none}
+  .icm-utilbar .icm-ub-left{display:none}
+  .icm-utilbar-inner{justify-content:center}
+  .icm-fgrid{grid-template-columns:1fr 1fr;gap:34px}
+  .icm-fcol-brand{grid-column:1 / -1}
+  .icm-watermark{background-size:78vw;opacity:.04}
+}
+@media(max-width:760px){
+  .icm-ev-grid,.icm-sp-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .icm-join-btns{width:100%}
+  .icm-btn-gold,.icm-btn-ghost{flex:1 1 auto;text-align:center;white-space:nowrap}
+}
+@media(max-width:600px){
+  .icm-section{padding:36px 0}
+  .icm-hero{padding:32px 0 34px}
+  .icm-search{flex-direction:column}
+  .icm-search button{padding:14px 0}
+  .icm-stats{gap:24px}
+  .icm-fgrid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}

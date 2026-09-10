@@ -1,0 +1,79 @@
+<!-- =====================================================================
+     SHARED HEADER — paste into every page, changing only which nav-item
+     carries class "active".
+
+       index.html            → Home
+       about-us.html         → About
+       public-directory.html → Directory   (also members.html,
+                                            member-profile.html, faculty.html)
+       events.html           → Events
+       membership.html       → Membership
+
+     Also delete the old <div class="site-welcome-banner"> from each page —
+     the utility strip below replaces it.
+     ===================================================================== -->
+
+<div class="icm-utilbar">
+  <div class="icm-utilbar-inner">
+    <span class="icm-ub-left">A non-profit professional platform &middot; Established by academicians</span>
+    <span class="icm-ub-right">
+      <a href="members.html">Members Corner</a>
+      <a href="public-directory.html">Scholars Corner</a>
+      <a href="mailto:secretariat@icmta.in">secretariat@icmta.in</a>
+      <a class="icm-ub-ic" href="#" aria-label="LinkedIn">in</a>
+      <a class="icm-ub-ic" href="#" aria-label="YouTube">&#9654;</a>
+    </span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/images/ICMTA-logo.png" alt="ICMTA Logo" class="brand-logo">
+      <div class="brand-text"></div>
+    </a>
+    <nav class="nav-links">
+      <span class="icm-navitem"><a href="index.html" class="nav-item active">Home</a></span>
+
+      <span class="icm-navitem">
+        <a href="about-us.html" class="nav-item">About <i class="icm-caret">&#9662;</i></a>
+        <div class="icm-dd">
+          <a href="about-us.html#vision">Vision &amp; Mission</a>
+          <a href="about-us.html#founders">Founders &amp; Mentors</a>
+          <a href="initiatives.html">Our Initiatives</a>
+          <a href="about-us.html#conduct">Code of Conduct</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </span>
+
+      <span class="icm-navitem"><a href="public-directory.html" class="nav-item">Directory</a></span>
+
+      <span class="icm-navitem">
+        <a href="events.html" class="nav-item">Events <i class="icm-caret">&#9662;</i></a>
+        <div class="icm-dd">
+          <a href="events.html#upcoming">Upcoming Events</a>
+          <a href="events.html#past">Past Events &amp; Archives</a>
+          <a class="icm-soon" href="#">Call for Papers</a>
+        </div>
+      </span>
+
+      <span class="icm-navitem">
+        <a href="membership.html" class="nav-item">Membership <i class="icm-caret">&#9662;</i></a>
+        <div class="icm-dd">
+          <a href="membership.html#why">Why Join</a>
+          <a href="membership.html#categories">Categories &amp; Fees</a>
+          <a href="membership.html#apply">How to Apply</a>
+          <a class="icm-soon" href="#">Renew Membership</a>
+        </div>
+      </span>
+
+      <span class="icm-sitesearch">
+        <button class="icm-ss-btn" aria-label="Search the site"
+          onclick="this.parentNode.classList.toggle('icm-open');var i=this.parentNode.querySelector('input');if(this.parentNode.classList.contains('icm-open'))i.focus()">&#8981;</button>
+        <form class="icm-ss-form" action="search.html" method="get">
+          <input type="search" name="q" placeholder="Search the site — events, membership, resources…" aria-label="Search the site">
+        </form>
+      </span>
+    </nav>
+  </div>
+</header>
