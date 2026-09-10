@@ -1,0 +1,55 @@
+ICMTA site cleanup — steps 1 to 3
+=================================
+
+STEP 1 — Navigation reduced from 10 items to 5
+  Home · About Us · Directory · Events · Membership
+
+  Applied to all 14 pages, with the correct item highlighted on each.
+  - "Members" dropdown removed; Directory now links straight to
+    public-directory.html
+  - Admin Login removed from the public nav (still in the footer)
+  - Our Initiatives, ICMTA Resources, Contact Us moved to the footer,
+    where they already appeared on every page
+
+STEP 2 — Three orphan duplicate pages deleted
+  contact-us.html        0 inbound links (duplicate of contact.html)
+  our-initiatives.html   0 inbound links (duplicate of initiatives.html)
+  icmt-resources.html    0 inbound links (duplicate of resources.html)
+
+  Verified: nothing on the site linked to any of them.
+
+STEP 3 — Images optimised, 43 img tags set to lazy-load
+  92 images resized and recompressed.  25.3 MB -> 12.5 MB (51% smaller)
+
+  Biggest wins:
+    logo files (6 copies)      788-804 KB each  ->  93-96 KB   (1024px -> 320px)
+    seminar brochure pages 1-6   1.0-1.6 MB each ->  221-333 KB (1654px -> 990px)
+    siddhartha-seminar-poster    1.59 MB         ->  319 KB
+
+  loading="lazy" added to every <img> except the header brand logo,
+  which stays eager because it is above the fold.
+
+TOTAL SITE SIZE   31 MB  ->  18 MB
+
+CHECKS RUN
+  - every src/href asset reference resolves to a file that exists
+  - every internal page link resolves
+  - no page left without a nav block (admin.html has none by design)
+
+NOT DONE YET — decisions needed
+  - members.html is now only reachable from the footer. It is a landing
+    page with three cards and a button to the directory. Retire it, or
+    redirect it to public-directory.html?
+  - .nav-dropdown CSS rules are now dead in public-directory.html and
+    member-profile.html. Harmless, but worth deleting.
+  - favicon is commented out in events.html (line 11) and possibly others.
+
+NEXT STEPS
+  4. Add the gold accent from the logo to css/style.css
+  5. Rebuild the home page hero with search
+  6. Directory page
+
+HOW TO DEPLOY
+  Upload the whole folder to Hostinger, replacing what is there.
+  Do not upload only the HTML — the images changed too, and mismatched
+  uploads are what caused the broken image on events.html.

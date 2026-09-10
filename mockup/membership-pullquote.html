@@ -1,0 +1,69 @@
+<!-- ============================================================
+     ICMTA — inaugural pull-quote for membership.html
+
+     WHERE: paste immediately AFTER the closing </div> of the
+     "Why Become an ICMTA Member?" section-block (around line 416),
+     and BEFORE the "Who is ICMTA Membership for?" block.
+
+     That position matters: the reader has just been told what
+     membership is, and is about to be told whether it is for them.
+     The quote sits in the gap and answers "why bother".
+
+     The CSS block below can move into css/style.css once approved.
+     ============================================================ -->
+
+<style>
+.icmta-quote{
+  margin:34px 0;
+  padding:32px 38px;
+  background:linear-gradient(135deg,#00394d,#004d66 60%,#1e6c93);
+  border-left:5px solid #c49b4b;
+  border-radius:12px;
+  color:#fff;
+}
+.icmta-quote blockquote{
+  margin:0 0 14px;
+  font-size:clamp(20px,2.6vw,27px);
+  line-height:1.32;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+.icmta-quote .icmta-quote-mark{
+  color:#c49b4b;
+  font-size:34px;
+  line-height:0;
+  vertical-align:-6px;
+  margin-right:4px;
+}
+.icmta-quote cite{
+  display:block;
+  font-style:normal;
+  font-size:13px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#c49b4b;
+  font-weight:700;
+}
+.icmta-quote .icmta-quote-note{
+  margin:14px 0 0;
+  font-size:14.5px;
+  line-height:1.6;
+  color:#cfe4ee;
+  max-width:62ch;
+}
+@media(max-width:640px){
+  .icmta-quote{padding:24px 22px;margin:26px 0}
+}
+</style>
+
+<div class="icmta-quote">
+  <blockquote>
+    <span class="icmta-quote-mark">&ldquo;</span>Your network is your net worth.
+  </blockquote>
+  <cite>From the inaugural address &middot; Teachers' Day, 5 September 2026</cite>
+  <p class="icmta-quote-note">
+    For an academic, that network is a supervisor found in another state, a co-author for
+    the paper that has waited two years, an examiner who knows the subject, a panel that
+    invites you to chair. ICMTA membership is how you join it.
+  </p>
+</div>
